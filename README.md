@@ -42,7 +42,7 @@ The website can be hosted on **GitHub Pages**, **Netlify**, or any web server su
 
 For any questions or collaboration inquiries, please reach out via:
 
-- Email: **[eliasmosestuhafeni0@gmail.com](mailto:eliasmosestuhafeni0@gmail.com)**
+- Email: **[eliasmosestuhafeni@gmail.com](mailto:eliasmosestuhafeni@gmail.com)**
 - Phone: **[081 413 1515](tel:+264814131515)**
 
 
