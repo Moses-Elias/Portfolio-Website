@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Elias Moses - Portfolio</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  html, body { scroll-behavior: smooth; }
+  body.dark { background: #121212; color: #e0e0e0; }
+  header, footer { transition: background-color 0.3s; }
+  nav a { padding-bottom: 0.25rem; border-bottom: 2px solid transparent; }
+  nav a.active, nav a:hover { border-bottom-color: #3b82f6; color: #3b82f6; }
+
+  /* Home hero styles */
+  .home-hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* Background fade layers */
+  .bg-image {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 1.5s ease-in-out;
+    opacity: 0;
+    z-index: 0;
+  }
+  .bg-image.visible {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  /* Overlay to darken images */
+  .home-hero::after {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+  }
+
+  /* Content above overlay */
+  .home-hero > div:last-child {
+    position: relative;
+    z-index: 3;
+  }
+
+  #scrollProgress {
+    position: fixed; top: 0; left: 0; height: 4px; background: #3b82f6;
+    width: 0%; z-index: 1000;
+  }
+
+  .fade-in {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .fade-in.visible {
+    opacity: 1; transform: none;
+  }
+
+  #backToTop, #chatbotBtn {
+    position: fixed; right: 1rem; background: #3b82f6; color: #fff;
+    border-radius: 50%; width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; cursor: pointer;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s, transform 0.3s;
+    z-index: 100;
+  }
+  #backToTop.show, #chatbotBtn.show {
+    opacity: 1; pointer-events: auto;
+  }
+  #backToTop { bottom: 1rem; }
+  #chatbotBtn { bottom: 4.5rem; }
+
+  .spinner {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: white; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .spinner div {
+    width: 40px; height: 40px;
+    border: 5px solid #3b82f6;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+
+  iframe {
+    width: 100%; height: 500px; border: none;
+  }
+</style>
+</head>
+<body>
+<div class="spinner"><div></div></div>
+<div id="scrollProgress"></div>
+
+<header class="fixed w-full bg-white dark:bg-gray-900 shadow z-50">
+  <div class="container mx-auto flex justify-between items-center p-4">
+    <h1 class="text-xl font-bold">Elias Moses</h1>
+    <nav class="space-x-4">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#services">Services</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="darkModeToggle">Dark Mode</button>
+  </div>
+</header>
+
+<main>
+  <section id="home" class="home-hero fade-in">
+    <!-- Two background layers for smooth fade -->
+    <div class="bg-image bg1"></div>
+    <div class="bg-image bg2"></div>
+
+    <div>
+      <h2 class="text-4xl font-bold mb-4">Welcome to My Portfolio</h2>
+      <p id="introTyping" class="typing text-xl"></p>
+    </div>
+  </section>
+
+  <section id="about" class="fade-in container mx-auto p-8 max-w-3xl">
+    <h2 class="text-3xl font-bold mb-6 text-center">About Me</h2>
+    <p id="aboutTyping" class="typing text-lg leading-relaxed"></p>
+  </section>
+
+  <section id="projects" class="fade-in container mx-auto p-8 max-w-6xl">
+    <h2 class="text-3xl font-bold mb-8 text-center">Projects</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="card p-6"><h3 class="font-semibold mb-2">Project One</h3><p>Responsive, scalable, modern.</p></div>
+      <div class="card p-6"><h3 class="font-semibold mb-2">Project Two</h3><p>Creative, innovative, user-friendly.</p></div>
+      <div class="card p-6"><h3 class="font-semibold mb-2">Project Three</h3><p>Efficient, fast, reliable.</p></div>
+    </div>
+  </section>
+
+<section id="skills" class="fade-in container mx-auto p-8 max-w-6xl">
+  <h2 class="text-3xl font-bold mb-8 text-center">My Skills</h2>
+  <div class="grid md:grid-cols-2 gap-8">
+    <div class="space-y-6">
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2H2V5zM2 9h16v6a2 2 0 01-2 2H4a2 2 0 01-2-2V9z"/>
+          </svg>
+          Microsoft SQL <span class="ml-auto">73%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-blue-500 h-4 rounded" style="width: 73%;"></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M5 3a2 2 0 00-2 2v3h2V5h3V3H5zm11 0v2h3v3h2V5a2 2 0 00-2-2h-3zM5 16H3v3a2 2 0 002 2h3v-2H5v-3zm16 0v3h-3v2h3a2 2 0 002-2v-3h-2z"/>
+          </svg>
+          Graphic Design <span class="ml-auto">71%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-pink-500 h-4 rounded" style="width: 71%;"></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 4h16v2H4zm0 6h16v2H4zm0 6h16v2H4z"/>
+          </svg>
+          Full Stack Developer <span class="ml-auto">67%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-green-500 h-4 rounded" style="width: 67%;"></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 5v14h18V5H3zm16 12H5V7h14v10z"/>
+          </svg>
+          Database Management <span class="ml-auto">79%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-yellow-500 h-4 rounded" style="width: 79%;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-6">
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 00-7.07 17.07A10 10 0 1012 2z"/>
+          </svg>
+          Mobile Application Development <span class="ml-auto">63%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-purple-500 h-4 rounded" style="width: 63%;"></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-indigo-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+          </svg>
+          Web Developer <span class="ml-auto">80%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-indigo-500 h-4 rounded" style="width: 80%;"></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 4h16v2H4zm0 6h16v2H4zm0 6h16v2H4z"/>
+          </svg>
+          BackEnd Developer <span class="ml-auto">69%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-red-500 h-4 rounded" style="width: 69%;"></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="flex items-center font-semibold mb-2">
+          <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 4h16v2H4zM4 10h16v2H4zM4 16h16v2H4z"/>
+          </svg>
+          API Integration <span class="ml-auto">47%</span>
+        </h3>
+        <div class="w-full bg-slate-300 rounded-full h-4 dark:bg-slate-600">
+          <div class="bg-gray-500 h-4 rounded" style="width: 47%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes fill {
+  from { width: 0; }
+  to   { width: var(--final-width); }
+}
+.animate-fill {
+  animation: fill 2s ease-out forwards;
+}
+</style>
+
+
+
+  <section id="services" class="fade-in container mx-auto p-8 max-w-6xl">
+    <h2 class="text-3xl font-bold mb-8 text-center">My Services</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="card"><h3>Web App Development</h3><p>Custom full-stack solutions.</p></div>
+      <div class="card"><h3>Mobile App Development</h3><p>Modern Android apps.</p></div>
+      <div class="card"><h3>UI/UX Design</h3><p>Wireframes & prototypes.</p></div>
+    </div>
+  </section>
+
+  <section id="certifications" class="fade-in container mx-auto p-8 max-w-6xl">
+    <h2 class="text-3xl font-bold mb-8 text-center">My Certifications</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="card"><h3>Full Stack Certificate</h3><p>FNB App Academy, 2024</p></div>
+      <div class="card"><h3>Responsive Web Design</h3><p>freeCodeCamp, 2023</p></div>
+      <div class="card"><h3>Android Development</h3><p>Online Course, 2024</p></div>
+    </div>
+  </section>
+
+<section id="contact" class="fade-in container mx-auto px-8 py-16 max-w-6xl">
+  <h2 class="text-3xl font-bold mb-12 text-center">Contact Me</h2>
+  <div class="grid md:grid-cols-2 gap-12">
+    <!-- Contact Form -->
+    <form id="contactForm" 
+          action="https://formspree.io/f/xrblpwjg" 
+          method="POST" 
+          class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow space-y-6" 
+          novalidate>
+      <div>
+        <label for="name" class="block mb-2 font-semibold">Name<span class="text-red-500">*</span></label>
+        <input id="name" name="name" type="text" placeholder="Your Name" 
+               class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
+               required minlength="2" />
+        <p class="mt-1 text-sm text-red-600 hidden" id="nameError">Please enter at least 2 characters.</p>
+      </div>
+      <div>
+        <label for="email" class="block mb-2 font-semibold">Email<span class="text-red-500">*</span></label>
+        <input id="email" name="email" type="email" placeholder="Your Email" 
+               class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
+               required />
+        <p class="mt-1 text-sm text-red-600 hidden" id="emailError">Please enter a valid email.</p>
+      </div>
+      <div>
+        <label for="subject" class="block mb-2 font-semibold">Subject</label>
+        <input id="subject" name="subject" type="text" placeholder="Subject" 
+               class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="message" class="block mb-2 font-semibold">Message<span class="text-red-500">*</span></label>
+        <textarea id="message" name="message" rows="5" placeholder="Your Message" 
+                  class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                  required minlength="10"></textarea>
+        <p class="mt-1 text-sm text-red-600 hidden" id="messageError">Please enter at least 10 characters.</p>
+      </div>
+
+      <!-- Google reCAPTCHA -->
+      <div class="g-recaptcha" data-sitekey="6LfnwI0rAAAAADjVkBWqvCo1yehTkMRSYXgiAI8l"></div>
+
+      <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition">Send Message</button>
+
+      <p id="formSuccess" class="text-green-600 mt-4 hidden font-semibold text-center">Thank you! Your message has been sent.</p>
+      <p id="formError" class="text-red-600 mt-4 hidden font-semibold text-center">Oops! Something went wrong. Please try again.</p>
+    </form>
+
+    <!-- Contact Info -->
+    <div class="space-y-6">
+      <div class="flex items-center">
+        <svg class="w-6 h-6 text-blue-500 mr-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M2.5 3.75a2.25 2.25 0 012.25-2.25h3.5a2.25 2.25 0 012.25 2.25v3.5a2.25 2.25 0 01-2.25 2.25H6.121a9.455 9.455 0 004.21 4.21v-1.905a.75.75 0 01.75-.75h3.5a2.25 2.25 0 012.25 2.25v3.5a2.25 2.25 0 01-2.25 2.25h-1.5a15.563 15.563 0 01-11.5-11.5v-1.5z"/>
+        </svg>
+        <a href="tel:+264814131515" class="text-lg">+264 81 413 1515</a>
+      </div>
+      <div class="flex items-center">
+        <svg class="w-6 h-6 text-green-500 mr-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M1.5 6.75v10.5a2.25 2.25 0 002.25 2.25h16.5a2.25 2.25 0 002.25-2.25V6.75m-21 0l10.5 7.875L22.5 6.75"/>
+        </svg>
+        <a href="mailto:eliasmosestuhafeni@gmail.com" class="text-lg">eliasmosestuhafeni@gmail.com</a>
+      </div>
+      <div class="flex items-center">
+        <svg class="w-6 h-6 text-blue-700 mr-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.983 3.5a2.5 2.5 0 11-.002 5.002 2.5 2.5 0 01.002-5.002zM3 8.75h4v11h-4v-11zm6 0h3.8v1.5h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.2 2.4 4.2 5.4v6.9h-4v-6.2c0-1.4 0-3.2-2-3.2-2 0-2.3 1.6-2.3 3.1v6.3h-4v-11z"/>
+        </svg>
+        <a href="https://www.linkedin.com/in/elias-moses-772bb02a3" target="_blank" class="text-lg">LinkedIn</a>
+      </div>
+      <div class="flex items-center">
+        <svg class="w-6 h-6 text-gray-900 dark:text-gray-100 mr-4" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 2a10 10 0 00-3.16 19.5c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.34-3.37-1.34a2.65 2.65 0 00-1.11-1.46c-.91-.62.07-.6.07-.6a2.1 2.1 0 011.53 1.03 2.13 2.13 0 002.91.83 2.14 2.14 0 01.64-1.34c-2.22-.25-4.56-1.11-4.56-4.95a3.9 3.9 0 011.04-2.7 3.6 3.6 0 01.1-2.66s.85-.27 2.8 1.04a9.69 9.69 0 015.1 0c1.95-1.31 2.8-1.04 2.8-1.04a3.6 3.6 0 01.1 2.66 3.9 3.9 0 011.04 2.7c0 3.85-2.34 4.7-4.57 4.95a2.39 2.39 0 01.69 1.86c0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10 10 0 0012 2z" clip-rule="evenodd"/>
+        </svg>
+        <a href="https://github.com/Moses-Elias" target="_blank" class="text-lg">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Scripts -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+const form = document.getElementById("contactForm");
+const successMsg = document.getElementById("formSuccess");
+const errorMsg = document.getElementById("formError");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  successMsg.classList.add("hidden");
+  errorMsg.classList.add("hidden");
+
+  let valid = true;
+
+  const nameInput = form.name;
+  const nameError = document.getElementById("nameError");
+  if (nameInput.value.trim().length < 2) {
+    nameError.classList.remove("hidden");
+    valid = false;
+  } else {
+    nameError.classList.add("hidden");
+  }
+
+  const emailInput = form.email;
+  const emailError = document.getElementById("emailError");
+  const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+  if (!emailPattern.test(emailInput.value.trim())) {
+    emailError.classList.remove("hidden");
+    valid = false;
+  } else {
+    emailError.classList.add("hidden");
+  }
+
+  const messageInput = form.message;
+  const messageError = document.getElementById("messageError");
+  if (messageInput.value.trim().length < 10) {
+    messageError.classList.remove("hidden");
+    valid = false;
+  } else {
+    messageError.classList.add("hidden");
+  }
+
+  if (typeof grecaptcha !== "undefined") {
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+      alert("Please verify that you are not a robot.");
+      valid = false;
+    }
+  }
+
+  if (!valid) return;
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    });
+    if (response.ok) {
+      form.reset();
+      grecaptcha.reset();
+      successMsg.classList.remove("hidden");
+    } else {
+      throw new Error("Network response was not ok.");
+    }
+  } catch (error) {
+    errorMsg.classList.remove("hidden");
+    console.error("Form submission error:", error);
+  }
+});
+</script>
+
+
+
+</main>
+
+<!-- Updated footer -->
+<footer class="bg-white dark:bg-gray-900 p-8 mt-12 shadow-inner">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-700 dark:text-gray-300">
+    <div>
+      <h3 class="text-xl font-semibold mb-3">Elias Moses</h3>
+      <p>© <span id="year"></span> Elias Moses. All rights reserved.</p>
+      <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Crafted with care & passion.</p>
+    </div>
+    <div>
+      <h3 class="text-xl font-semibold mb-3">Quick Links</h3>
+      <ul class="space-y-1">
+        <li><a href="#home" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Home</a></li>
+        <li><a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition">About</a></li>
+        <li><a href="#projects" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Projects</a></li>
+        <li><a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-xl font-semibold mb-3">Connect with Me</h3>
+      <div class="flex space-x-6">
+        <!-- Email -->
+        <a href="mailto:eliasmosestuhafeni@gmail.com" aria-label="Email" class="transition hover:opacity-80" style="color: #D44638;">
+          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M1.5 6.75v10.5a2.25 2.25 0 002.25 2.25h16.5a2.25 2.25 0 002.25-2.25V6.75m-21 0l10.5 7.875L22.5 6.75"/></svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/elias-moses-772bb02a3" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="transition hover:opacity-80" style="color: #0A66C2;">
+          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M4.983 3.5a2.5 2.5 0 11-.002 5.002 2.5 2.5 0 01.002-5.002zM3 8.75h4v11h-4v-11zm6 0h3.8v1.5h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.2 2.4 4.2 5.4v6.9h-4v-6.2c0-1.4 0-3.2-2-3.2-2 0-2.3 1.6-2.3 3.1v6.3h-4v-11z"/></svg>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/Moses-Elias" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="transition hover:opacity-80" style="color: #181717;">
+          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2a10 10 0 00-3.16 19.5c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.34-3.37-1.34a2.65 2.65 0 00-1.11-1.46c-.91-.62.07-.6.07-.6a2.1 2.1 0 011.53 1.03 2.13 2.13 0 002.91.83 2.14 2.14 0 01.64-1.34c-2.22-.25-4.56-1.11-4.56-4.95a3.9 3.9 0 011.04-2.7 3.6 3.6 0 01.1-2.66s.85-.27 2.8 1.04a9.69 9.69 0 015.1 0c1.95-1.31 2.8-1.04 2.8-1.04a3.6 3.6 0 01.1 2.66 3.9 3.9 0 011.04 2.7c0 3.85-2.34 4.7-4.57 4.95a2.39 2.39 0 01.69 1.86c0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10 10 0 0012 2z" clip-rule="evenodd"/></svg>
+        </a>
+
+        <!-- Phone -->
+        <a href="tel:+264814131515" aria-label="Phone" class="transition hover:opacity-80" style="color: #10B981;">
+          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M2.5 3.75a2.25 2.25 0 012.25-2.25h3.5a2.25 2.25 0 012.25 2.25v3.5a2.25 2.25 0 01-2.25 2.25H6.121a9.455 9.455 0 004.21 4.21v-1.905a.75.75 0 01.75-.75h3.5a2.25 2.25 0 012.25 2.25v3.5a2.25 2.25 0 01-2.25 2.25h-1.5a15.563 15.563 0 01-11.5-11.5v-1.5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop">↑</button>
+<button id="chatbotBtn" title="Chat with me!">💬</button>
+
+<script>
+  // Set current year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Hide spinner on page load
+  window.addEventListener("load", () => {
+    document.querySelector(".spinner").style.display = "none";
+  });
+
+  // Dark mode toggle
+  const toggle = document.getElementById("darkModeToggle");
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+    toggle.textContent = "Light Mode";
+  } else {
+    toggle.textContent = "Dark Mode";
+  }
+
+  });
+
+  // Background slideshow with smooth fade
+  const bgs = [
+    "images/bg1.jpg",
+    "images/bg2.jpg",
+    "images/bg3.jpg",
+    "images/bg4.jpg",
+    "images/bg5.jpg",
+    "images/bg6.jpg"
+  ];
+
+  const bg1 = document.querySelector(".bg1");
+  const bg2 = document.querySelector(".bg2");
+
+  let current = 0;
+  let showingFirst = true;
+
+  // Initialize backgrounds
+  bg1.style.backgroundImage = `url('${bgs[0]}')`;
+  bg1.classList.add("visible");
+  bg2.style.backgroundImage = `url('${bgs[1]}')`;
+
+  function changeBg() {
+    const next = (current + 1) % bgs.length;
+    if (showingFirst) {
+      bg2.style.backgroundImage = `url('${bgs[next]}')`;
+      bg2.classList.add("visible");
+      bg1.classList.remove("visible");
+    } else {
+      bg1.style.backgroundImage = `url('${bgs[next]}')`;
+      bg1.classList.add("visible");
+      bg2.classList.remove("visible");
+    }
+    showingFirst = !showingFirst;
+    current = next;
+  }
+
+  setInterval(changeBg, 5000);
+
+  // Typing effect function
+  function typeWriter(text, elementId, speed = 50) {
+    let i = 0;
+    const el = document.getElementById(elementId);
+    el.textContent = "";
+    function typing() {
+      if (i < text.length) {
+        el.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, speed);
+      }
+    }
+    typing();
+  }
+
+  //  intro paragraph
+  const introText = `I'm Elias Moses, I see myself as an enthusiastic, detail‑oriented developer driven by curiosity, practicality, and a commitment to continuous improvement, always blending functionality with thoughtful design."`;
+  typeWriter(introText, "introTyping");
+
+  // About section text
+  const aboutText = `I’m a curious, hands-on software developer with a solid foundation in full-stack development. I enjoy building practical, real-world projects that address real users and communities. I have also acquired a certificate in Full Stack Development from the FNB App Academy, which strengthened my skills in developing secure, user-centered applications.
+                     
+  Beyond my technical skills, I’m a well‑encouraged person with strong work ethics, an outstanding character, and good discipline. I’m highly cooperative, motivated, and able to influence others positively. I communicate effectively, approach challenges with diligence, and enjoy meeting new challenges and dealing with complex human situations.`;
+  // Delay typing until after intro finishes (approx length * speed)
+  setTimeout(() => {
+  typeWriter(aboutText, "aboutTyping");
+}, 2000); // starts after 2 seconds
+
+
+  // Scroll progress bar
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    document.getElementById("scrollProgress").style.width = scrollPercent + "%";
+
+    // Show/hide back to top button
+    const backToTop = document.getElementById("backToTop");
+    if (scrollTop > 300) {
+      backToTop.classList.add("show");
+    } else {
+      backToTop.classList.remove("show");
+    }
+  });
+
+  // Back to top button click
+  document.getElementById("backToTop").addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // Fade-in on scroll for sections
+  const faders = document.querySelectorAll(".fade-in");
+  const options = { threshold: 0.2 };
+  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+  faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+  });
+
+  // Chatbot button to open Tawk.to widget
+  const chatBtn = document.getElementById("chatbotBtn");
+  chatBtn.addEventListener("click", () => {
+    if(window.Tawk_API && typeof window.Tawk_API.toggle === "function") {
+      window.Tawk_API.toggle();
+    } else {
+      alert("Chat widget is loading, please wait...");
+    }
+  });
+
+</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6881e89f487057192063f1d1/1j0tn9cp4';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+</body>
+</html>
