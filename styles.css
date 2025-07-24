@@ -86,7 +86,7 @@ nav a:hover {
 }
 
 /* Back to top button & chatbot */
-#backToTop, #chatBot {
+#backToTop, #chatbotBtn {
   position: fixed;
   right: 2rem;
   background-color: #3b82f6;
@@ -101,21 +101,28 @@ nav a:hover {
   transition: opacity 0.4s ease, transform 0.3s ease;
   z-index: 100;
 }
+
 #backToTop {
-  bottom: 2rem;
+  bottom: 1rem;
 }
-#chatBot {
-  bottom: 5.5rem;
+
+#chatbotBtn {
+  bottom: 20rem; /* adjust this value up/down to avoid collision */
 }
-#backToTop.show, #chatBot.show {
+
+#backToTop.show, #chatbotBtn.show {
   opacity: 1;
   pointer-events: auto;
   animation: pulse 2s infinite;
 }
-#backToTop:hover, #chatBot:hover {
+
+#backToTop:hover, #chatbotBtn:hover {
   transform: scale(1.2);
   box-shadow: 0 8px 20px rgba(59,130,246,0.8);
 }
+
+
+
 @keyframes pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.5); }
   50% { box-shadow: 0 0 10px 5px rgba(59,130,246,0.7); }
@@ -202,4 +209,144 @@ a:hover, button:hover {
   color: white;
   max-width: 90vw;
   text-align: center;
+}
+
+nav a {
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+nav a.active {
+  border-bottom-color: #3b82f6; /* your brand blue */
+  color: #3b82f6;
+}
+
+nav a:hover {
+  border-bottom-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.nav-link {
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s, color 0.3s;
+}
+.nav-link.active {
+  border-bottom-color: #3b82f6; /* your brand color */
+  color: #3b82f6;
+}
+.nav-link:hover {
+  border-bottom-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.bg-image {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.bg-image.visible {
+  opacity: 1;
+}
+
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  height: 100vh; /* or your desired height */
+}
+
+
+.home-hero {
+  position: relative;
+  overflow: hidden; /* Ensures images don't spill out */
+  min-height: 100vh; /* Example: full viewport height */
+}
+
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0; /* Start hidden */
+  animation: imageFade 20s infinite; /* 20s for the whole cycle, infinite loop */
+}
+
+/* Define your background images with relative paths */
+.bg-image.bg1 { background-image: url('freelance1.jpg'); }
+.bg-image.bg2 { background-image: url('freelance2.jpg'); }
+.bg-image.bg3 { background-image: url('freelance3.jpg'); }
+.bg-image.bg4 { background-image: url('freelance4.jpg'); }
+/* Add more .bg-image rules for each image */
+
+/* Delay the animation for each subsequent image */
+/* Adjust these delays based on your total animation duration and number of images */
+.bg-image.bg2 { animation-delay: 5s; }
+.bg-image.bg3 { animation-delay: 10s; }
+.bg-image.bg4 { animation-delay: 15s; }
+
+
+@keyframes imageFade {
+  0% { opacity: 0; }
+  10% { opacity: 1; } /* Fade in */
+  25% { opacity: 1; } /* Stay visible */
+  35% { opacity: 0; } /* Fade out */
+  100% { opacity: 0; } /* Stay hidden until next cycle */
+}
+
+
+/* Basic button styling */
+.btn-primary {
+  background-color: #3b82f6; /* A nice blue, matching your h2 span */
+  color: #ffffff; /* White text */
+  text-decoration: none; /* Remove underline for links */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Hover effect */
+.btn-primary:hover {
+  background-color: #f09617; /* Slightly darker blue on hover */
+  transform: scale(1.05); /* Slight growth effect */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* You might already have some of these from Tailwind CSS, but ensuring them here */
+.rounded-full {
+  border-radius: 9999px; /* Makes it pill-shaped */
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-lg {
+  font-size: 1.125rem; /* 18px */
+}
+
+/* Margin top for spacing */
+.mt-8 {
+  margin-top: 2rem; /* 32px */
+}
+
+/* Padding for button size */
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
