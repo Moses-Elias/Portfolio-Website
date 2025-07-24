@@ -77,11 +77,12 @@
     transition: opacity 0.4s, transform 0.3s;
     z-index: 100;
   }
+  
   #backToTop.show, #chatbotBtn.show {
     opacity: 1; pointer-events: auto;
   }
   #backToTop { bottom: 1rem; }
-  #chatbotBtn { bottom: 4.5rem; }
+  #chatbotBtn { bottom: 20rem; }
 
   .spinner {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -111,24 +112,29 @@
 <header class="fixed w-full bg-white dark:bg-gray-900 shadow z-50">
   <div class="container mx-auto flex justify-between items-center p-4">
     <h1 class="text-xl font-bold">Elias Moses</h1>
-    <nav class="space-x-4">
-      <a href="#home" class="active">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#services">Services</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<nav class="space-x-4">
+  <a href="#home" class="nav-link">Home</a>
+  <a href="#about" class="nav-link">About</a>
+  <a href="#projects" class="nav-link">Projects</a>
+  <a href="#skills" class="nav-link">Skills</a>
+  <a href="#services" class="nav-link">Services</a>
+  <a href="#certifications" class="nav-link">Certifications</a>
+  <a href="#contact" class="nav-link">Contact</a>
+</nav>
+
     <button id="darkModeToggle">Dark Mode</button>
   </div>
 </header>
 
 <main>
   <section id="home" class="home-hero fade-in">
-    <!-- Two background layers for smooth fade -->
+    <!-- background layers for smooth fade -->
     <div class="bg-image bg1"></div>
     <div class="bg-image bg2"></div>
+    <div class="bg-image bg3"></div>
+    <div class="bg-image bg4"></div>
+    <div class="bg-image bg5"></div>
+    <div class="bg-image bg6"></div>
 
     <div>
       <h2 class="text-4xl font-bold mb-4">Welcome to My Portfolio</h2>
@@ -269,6 +275,24 @@
     </div>
   </section>
 
+
+<section id="freelance" class="home-hero fade-in relative">
+  <div class="bg-image bg1"></div>
+  <div class="bg-image bg2"></div>
+  <div class="bg-image bg3"></div>
+  <div class="bg-image bg4"></div>
+  <div class="text-center text-white relative z-10 px-4 py-24">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">I'm <span class="text-blue-700">Open</span> for <span class="text-yellow-500">Freelancing</span> Projects</h2>
+    <p id="freelanceTyping" class="typing text-xl md:text-2xl mb-4">Turning ideas into polished digital products
+      Building modern, responsive, and scalable solutions for your business.
+    </p>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto">Let’s build something amazing together — from modern web apps and scalable backends to sleek mobile solutions and everything in between.</p>
+    <a href="#contact" class="btn-primary mt-8 inline-block px-8 py-4 rounded-full text-lg font-semibold transition-transform duration-300 hover:scale-105">Let's Talk!</a>
+  </div>
+</section>
+
+
+
   <section id="certifications" class="fade-in container mx-auto p-8 max-w-6xl">
     <h2 class="text-3xl font-bold mb-8 text-center">My Certifications</h2>
     <div class="grid md:grid-cols-3 gap-8">
@@ -277,6 +301,24 @@
       <div class="card"><h3>Android Development</h3><p>Online Course, 2024</p></div>
     </div>
   </section>
+
+
+<!-- Typing script -->
+<script>
+  const typingElement = document.getElementById('freelanceTyping');
+  const text = "";
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      typingElement.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 50); // typing speed
+    }
+  }
+  document.addEventListener('DOMContentLoaded', type);
+</script>
+
 
 <section id="contact" class="fade-in container mx-auto px-8 py-16 max-w-6xl">
   <h2 class="text-3xl font-bold mb-12 text-center">Contact Me</h2>
@@ -503,12 +545,12 @@ form.addEventListener("submit", async (e) => {
 
   // Background slideshow with smooth fade
   const bgs = [
-    "images/bg1.jpg",
-    "images/bg2.jpg",
-    "images/bg3.jpg",
-    "images/bg4.jpg",
-    "images/bg5.jpg",
-    "images/bg6.jpg"
+    "bg1.jpg",
+    "bg2.jpg",
+    "bg3.jpg",
+    "bg4.jpg",
+    "bg5.jpg",
+    "bg6.jpg"
   ];
 
   const bg1 = document.querySelector(".bg1");
@@ -538,7 +580,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   setInterval(changeBg, 5000);
-
+  
   // Typing effect function
   function typeWriter(text, elementId, speed = 50) {
     let i = 0;
@@ -629,6 +671,34 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
+
+<script>
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  function onScroll() {
+    let scrollY = window.pageYOffset;
+
+    sections.forEach(section => {
+      const sectionHeight = section.offsetHeight;
+      const sectionTop = section.offsetTop - 70; // adjust if header is fixed
+      const sectionId = section.getAttribute("id");
+
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + sectionId) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }
+
+  window.addEventListener("scroll", onScroll);
+</script>
+
+
 
 </body>
 </html>
