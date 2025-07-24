@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Services - Elias Moses</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<style>
+/* Same styles as before */
+html { scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
+body { transition: background-color 0.3s, color 0.3s; }
+body.dark { background-color: #121212; color: #e0e0e0; }
+body.dark header, body.dark footer { background-color: #1f2937; color: #d1d5db; }
+nav a { padding-bottom: 0.25rem; border-bottom: 2px solid transparent; transition: border-color 0.3s, color 0.3s; }
+nav a.active, nav a:hover { border-bottom-color: #3b82f6; color: #3b82f6; }
+header { position: fixed; top: 0; width: 100%; z-index: 50; background: white; box-shadow: 0 2px 4px rgba(0,0,0,.1); }
+main { padding-top: 4.5rem; }
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+.card { background: white; border-radius: 0.5rem; padding: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,.1); transition: transform .3s, box-shadow .3s; }
+.card:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 12px 20px rgba(59,130,246,.6); }
+body.dark .card { background: #1f2937; }
+#backToTop { position: fixed; bottom: 2rem; right: 2rem; background: #3b82f6; color: white; padding: .75rem 1rem; border-radius: 9999px; font-size: 1.25rem; opacity: 0; pointer-events: none; transition: opacity .4s ease, transform .3s ease; z-index: 100; }
+#backToTop.show { opacity: 1; pointer-events: auto; animation: pulse 2s infinite; }
+#backToTop:hover { transform: scale(1.2); }
+@keyframes pulse { 0%,100% {box-shadow: 0 0 0 0 rgba(59,130,246,.5);} 50% {box-shadow: 0 0 10px 5px rgba(59,130,246,.7);} }
+#scrollProgress { position: fixed; top: 0; left: 0; height: 4px; background: #3b82f6; width: 0%; z-index: 1000; }
+</style>
+</head>
+<body>
+<div id="scrollProgress"></div>
+<header>
+  <div class="container mx-auto flex justify-between items-center p-4">
+    <h1 class="text-xl font-bold">Elias Moses</h1>
+    <nav class="space-x-6 text-gray-700 dark:text-gray-300">
+      <a href="index.html">Home</a>
+      <a href="skills.html">Skills</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="certification.html">Certifications</a>
+    </nav>
+    <button id="darkModeToggle">Dark Mode</button>
+  </div>
+</header>
+
+<main class="container mx-auto p-8 max-w-5xl">
+  <h2 class="text-3xl font-bold mb-8 text-center fade-in">My Services</h2>
+  <div class="grid md:grid-cols-3 gap-8 fade-in">
+    <div class="card"><h3 class="font-semibold mb-2">Web Application Development</h3><p>Custom full-stack solutions built to your needs.</p></div>
+    <div class="card"><h3 class="font-semibold mb-2">Mobile App Development</h3><p>Modern, responsive Android apps.</p></div>
+    <div class="card"><h3 class="font-semibold mb-2">UI/UX Design</h3><p>Wireframes, prototypes, and design systems.</p></div>
+    <div class="card"><h3 class="font-semibold mb-2">API Development</h3><p>RESTful services for seamless integration.</p></div>
+    <div class="card"><h3 class="font-semibold mb-2">Consulting & Code Review</h3><p>Improve code quality and maintainability.</p></div>
+    <div class="card"><h3 class="font-semibold mb-2">Deploy & Maintain</h3><p>Hosting, CI/CD, and ongoing support.</p></div>
+  </div>
+</main>
+
+<footer class="bg-white dark:bg-gray-900 mt-12 p-6 text-center">
+  &copy; <span id="year"></span> Elias Moses. All rights reserved.
+</footer>
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<script>
+// Same JS for dark mode, scroll, fade-in, backToTop
+document.getElementById("year").textContent=new Date().getFullYear();
+const toggle=document.getElementById("darkModeToggle");
+const saved=localStorage.getItem("theme");
+if(saved==="dark"){document.body.classList.add("dark");toggle.textContent="Light Mode";}
+toggle.addEventListener("click",()=>{document.body.classList.toggle("dark");toggle.textContent=document.body.classList.contains("dark")?"Light Mode":"Dark Mode";localStorage.setItem("theme",document.body.classList.contains("dark")?"dark":"light");});
+window.addEventListener("scroll",()=>{document.getElementById("scrollProgress").style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100+"%";document.getElementById("backToTop").classList.toggle("show",window.scrollY>300);});
+document.getElementById("backToTop").addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"});});
+document.querySelectorAll(".fade-in").forEach(el=>{new IntersectionObserver((e,o)=>{e.forEach(i=>{if(i.isIntersecting){i.target.classList.add("visible");o.unobserve(i.target);}});},{threshold:0.1}).observe(el);});
+</script>
+</body>
+</html>

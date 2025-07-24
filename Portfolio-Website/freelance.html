@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Freelance Projects – Elias Moses</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<style>
+  body.dark { background: #121212; color: #e0e0e0; }
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s, transform 0.8s; }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<!-- Header -->
+<header class="bg-white dark:bg-gray-900 shadow p-6">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Elias Moses</h1>
+    <nav class="space-x-4">
+      <a href="index.html" class="text-blue-500 hover:underline">Home</a>
+      <a href="freelance.html" class="text-blue-500 hover:underline">Freelance</a>
+      <a href="index.html#contact" class="text-blue-500 hover:underline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-grow">
+
+  <!-- Hero Section -->
+  <section class="relative fade-in h-[60vh] flex items-center justify-center text-center text-white">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" 
+         alt="Freelance Projects Background" 
+         class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div class="relative z-10 px-6">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">I’m Open for Freelance Projects</h2>
+      <p class="max-w-2xl mx-auto text-lg">I help clients build modern, scalable & user‑friendly applications — let’s make your idea real.</p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="fade-in container mx-auto py-16 px-6 max-w-6xl">
+    <h3 class="text-3xl font-bold mb-10 text-center">Services I Offer</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center">
+        <h4 class="font-semibold mb-2 text-xl">Web Development</h4>
+        <p>Modern full‑stack apps using Node.js, React & MongoDB.</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center">
+        <h4 class="font-semibold mb-2 text-xl">Mobile App Development</h4>
+        <p>Native Android apps built with Kotlin for smooth UX.</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center">
+        <h4 class="font-semibold mb-2 text-xl">API Integration</h4>
+        <p>Connect your apps to third‑party services or custom APIs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="fade-in text-center py-12 px-6 bg-blue-500 text-white">
+    <h3 class="text-2xl font-bold mb-4">Let’s Build Something Amazing!</h3>
+    <p class="mb-6">Got an idea? Reach out and let's talk about it.</p>
+    <a href="index.html#contact" class="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded hover:bg-gray-100 transition">Contact Me</a>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-white dark:bg-gray-900 text-center p-6 text-gray-600 dark:text-gray-400">
+  © <span id="year"></span> Elias Moses. All rights reserved.
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  faders.forEach(fader => observer.observe(fader));
+
+  // Current year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
