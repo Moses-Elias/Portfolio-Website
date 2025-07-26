@@ -32,6 +32,16 @@ The website can be hosted on **GitHub Pages**, **Netlify**, or any web server su
 </p>
 
 
+## 📜 License & Usage Notice ⚠️
+
+> 🚫 **This project is proprietary and closed-source.**  
+> All code, assets, and materials are copyright © 2025 **Elias Moses**.  
+>  
+> ✅ **You may _view_ this repository for personal reference only.**  
+> ❌ **You may _not_ copy, modify, redistribute, or use this code in your own projects** — commercial or non-commercial — without explicit written permission.
+>
+> For licensing inquiries or collaboration proposals, contact:
+> 📧 [eliasmosestuhafeni@gmail.com](mailto:eliasmosestuhafeni@gmail.com)
 
 
 ## *Contact*
