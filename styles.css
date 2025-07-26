@@ -350,3 +350,264 @@ nav a:hover {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+/* Section Styling */
+.tech-stack-section {
+    color: #333;
+    padding: 30px 20px;
+    width: 90%;
+    max-width: 1200px;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.tech-stack-section h2 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #212529;
+}
+
+.tech-stack-section h2 .icon {
+    margin-left: 10px;
+}
+
+.tech-stack-section hr {
+    border: none;
+    border-top: 1px solid #dee2e6;
+    margin: 20px auto 30px auto;
+    width: 80%;
+}
+
+/* Sub-headings for "Languages I Speak" and "What I'm Learning" */
+.tech-stack-section h3 {
+    font-size: 1.5em;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: rgb(0, 174, 255);
+    text-align: center;
+}
+.tech-stack-section h3 .icon {
+    margin-left: 8px;
+    font-size: 0.9em;
+}
+.tech-stack-section h3 .fa-rocket {
+    margin-right: 8px;
+}
+
+/* Wrapper for the scrolling content */
+.tech-stack-row-wrapper {
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+/* Inner container that holds the items and gets animated */
+.tech-stack-scroll-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll-left-to-right 25s linear infinite;
+    padding: 10px 0;
+}
+
+.tech-stack-scroll-inner:hover {
+    animation-play-state: paused;
+}
+
+/* Individual Tech Item Styling */
+.tech-item {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.95em;
+    color: #ffffff;
+    margin-right: 25px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific Item Colors */
+/* Languages I Speak */
+.lang-javascript { background-color: #F7DF1E; color: #333; }
+.lang-html { background-color: #E34C26; color: #fff; }
+.lang-css { background-color: #1572B6; color: #fff; }
+.lang-java { background-color: #007396; color: #fff; }
+.lang-kotlin { background-color: #7F52FF; color: #fff; }
+.lang-nodejs { background-color: #339933; color: #fff; }
+.lang-ballerina { background-color: #FF5A00; color: #fff; }
+
+/* What I'm Learning */
+.learn-python { background-color: #3776AB; color: #fff; }
+.learn-react { background-color: #61DAFB; color: #222; }
+.learn-typescript { background-color: #3178C6; color: #fff; }
+.learn-expressjs { background-color: #68A063; color: #fff; }
+.learn-react-native { background-color: #61DAFB; color: #222; }
+.learn-flutter { background-color: #02569B; color: #fff; }
+.learn-cicd { background-color: #555; color: #fff; }
+
+
+/* Keyframe Animation for Scrolling */
+@keyframes scroll-left-to-right {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* For the second row, scrolls in the opposite direction for variety */
+.tech-stack-scroll-inner.scroll-reverse {
+    animation: scroll-right-to-left 25s linear infinite;
+}
+
+@keyframes scroll-right-to-left {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .tech-stack-section {
+        width: 95%;
+        padding: 25px 15px;
+    }
+    .tech-stack-scroll-inner {
+        animation-duration: 30s;
+    }
+    .tech-item {
+        font-size: 0.9em;
+        padding: 8px 15px;
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tech-stack-section h2 {
+        font-size: 1.8em;
+    }
+    .tech-stack-section hr {
+        width: 90%;
+    }
+    .tech-stack-section h3 {
+        font-size: 1.3em;
+    }
+    .tech-stack-scroll-inner {
+        animation-duration: 40s;
+    }
+    .tech-item {
+        font-size: 0.85em;
+        padding: 7px 12px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-stack-section {
+        padding: 20px 10px;
+        border-radius: 0;
+    }
+    .tech-stack-section h2 {
+        font-size: 1.5em;
+        text-align: center;
+    }
+    .tech-stack-section hr {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .tech-stack-section h3 {
+        font-size: 1.1em;
+        text-align: center;
+    }
+    .tech-stack-scroll-inner {
+        animation-duration: 50s;
+    }
+    .tech-item {
+        font-size: 0.8em;
+        padding: 6px 10px;
+        margin-right: 10px;
+    }
+}
+
+/* CSS Variables for easier customization */
+:root {
+    --card-width: 320px; /* Equivalent to Tailwind's w-80 (80 * 4px) */
+    --card-spacing: 32px; /* Equivalent to Tailwind's space-x-8 (8 * 4px) */
+    --num-original-cards: 6; /* Number of unique certification cards */
+    /* Calculate total width of one set of cards */
+    --total-content-width: calc(var(--num-original-cards) * var(--card-width) + (var(--num-original-cards) - 1) * var(--card-spacing));
+    --scroll-speed: 60s; /* Adjust scroll speed (e.g., 30s for faster, 90s for slower) */
+}
+
+/* Container for the scrolling items */
+.horizontal-scroll-container {
+    display: flex; /* Makes items arrange in a row */
+    width: max-content; /* Crucial: allows content to dictate width, enabling animation */
+    /* Hide scrollbars across different browsers for a cleaner marquee look */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    -webkit-overflow-scrolling: touch; /* Improves scrolling on iOS, even if not user-scrollable */
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Apply the marquee animation */
+.marquee-container {
+    animation: scroll-left var(--scroll-speed) linear infinite;
+    will-change: transform; /* Performance optimization */
+}
+
+/* Pause animation on hover */
+.marquee-container:hover {
+    animation-play-state: paused;
+}
+
+/* Define the keyframes for the continuous leftward scroll */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0); /* Start with no horizontal offset */
+    }
+    100% {
+        /* Move left by the exact width of one set of original cards + their spacing */
+        transform: translateX(calc(-1 * (var(--total-content-width) + var(--card-spacing))));
+        /* We add one --card-spacing to ensure the duplicated content aligns perfectly
+           with the beginning of the animation, simulating infinite loop */
+    }
+}
+
+/* Ensure individual cards don't shrink and maintain their defined width */
+.horizontal-scroll-container > div {
+    flex-shrink: 0;
+}
+
+/* Optional: To mimic the "moving right to left" feel with a fade effect at edges */
+/* Apply to the direct parent of .horizontal-scroll-container if you want the fade outside the moving content */
+.fade-mask-wrapper {
+    position: relative;
+    overflow: hidden; /* This hides the content outside the mask */
+    /* Apply the mask to create the fade effect */
+    mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+}
